@@ -59,12 +59,15 @@ nav{
 .page{display:none;min-height:100vh;padding-top:5rem;position:relative;z-index:1}
 .page.active{display:block}
 
+/* MAX WIDTH WRAPPER */
+.inner{max-width:860px;margin:0 auto;width:100%}
+
 /* HERO */
 .hero{
   min-height:calc(100vh - 5rem);
   display:flex;flex-direction:column;justify-content:center;
   padding:4rem 2.5rem 2rem;
-  max-width:1100px;margin:0 auto;
+  max-width:860px;margin:0 auto;
   position:relative;
 }
 .hero-tag{
@@ -118,7 +121,7 @@ h1.hero-name .dim{color:var(--text3)}
 }
 
 /* SECTION COMMON */
-.section{padding:5rem 2.5rem;max-width:1100px;margin:0 auto}
+.section{padding:5rem 2.5rem;max-width:860px;margin:0 auto}
 .section-label{
   font-family:var(--mono);font-size:0.72rem;color:var(--red);
   letter-spacing:0.15em;text-transform:uppercase;
@@ -371,7 +374,7 @@ footer a:hover{color:var(--red)}
     </div>
   </div>
 
-  <div class="stat-row" style="max-width:1100px;margin:0 auto 0">
+  <div class="stat-row" style="max-width:860px;margin:0 auto 0">
     <div class="stat-box">
       <span class="stat-num">3yrs</span>
       <span class="stat-label">Professional Experience</span>
