@@ -77,7 +77,7 @@ nav{
 }
 .hero-tag::before{content:'';display:block;width:2rem;height:1px;background:var(--red)}
 h1.hero-name{
-  font-size:clamp(3rem,8vw,6.5rem);font-weight:800;line-height:1;
+  font-size:clamp(3rem,6vw,5rem);font-weight:800;line-height:1;
   letter-spacing:-0.03em;margin-bottom:0.5rem;
 }
 h1.hero-name .dim{color:var(--text3)}
@@ -624,30 +624,30 @@ footer a:hover{color:var(--red)}
 
     <div class="blog-grid">
 
-      <a href="#" class="blog-card">
+      <a href="https://github.com/Ballo-02/GPS_Spoofing" target="_blank" class="blog-card">
         <div class="blog-num">01</div>
         <div>
-          <div class="blog-tag">RF · Automotive</div>
+          <div class="blog-tag">RF · Automotive · HackRF One</div>
           <div class="blog-title">Simulating GPS Coordinates on an Aston Martin Infotainment System</div>
-          <div class="blog-desc">Exploring how easily GPS can be spoofed using a HackRF One and custom TCXO PCB. Covers signal theory, attenuator setup, and the threat model for modern vehicles relying on GPS for autopilot functionality.</div>
+          <div class="blog-desc">What if you could make a car think it's following a completely different route? Using a HackRF One and a custom TCXO PCB to concentrate the signal, I successfully overrode the GPS on an Aston Martin infotainment system. The research explores how GPS triangulation works, what's needed to spoof the signal, and the real-world threat implications — particularly for autopilot-reliant vehicles from Tesla, BMW, Audi, and Mercedes. Worth noting: many manufacturers still haven't implemented meaningful GPS authentication measures.</div>
         </div>
       </a>
 
-      <a href="https://ballo-02.github.io/blog2" class="blog-card">
+      <a href="#" class="blog-card">
         <div class="blog-num">02</div>
         <div>
-          <div class="blog-tag">Physical · RFID</div>
-          <div class="blog-title">Cloning a Paxton Key Fob with Proxmark3 and Flipper Zero</div>
-          <div class="blog-desc">Research into how keycard entry systems can be exploited. Covers LF/HF card analysis, Proxmark3 workflow, and a real-world test against an apartment entry system with permission.</div>
+          <div class="blog-tag">Physical · RFID · Proxmark3 · Flipper Zero</div>
+          <div class="blog-title">Cloning a Paxton Key Fob with Proxmark3 Easy and Flipper Zero</div>
+          <div class="blog-desc">Starting with zero information and a friend's apartment building as the target (with permission), I used a Proxmark3 Easy to analyse and clone the entry fob. The research covers the full spectrum of card types — LF cards at 125/134 kHz (HID Prox, EM410x, Indala), HF cards at 13.56 MHz (MIFARE Classic, DESFire, ISO 14443), and UHF at 860–960 MHz — and walks through identifying which type you're dealing with before attempting a clone. A practical look at how physical access control systems can be silently bypassed.</div>
         </div>
       </a>
 
-      <a href="https://ballo-02.github.io/blog3" class="blog-card">
+      <a href="#" class="blog-card">
         <div class="blog-num">03</div>
         <div>
-          <div class="blog-tag">RF · Tesla</div>
+          <div class="blog-tag">RF · Tesla · Replay Attack</div>
           <div class="blog-title">Capturing & Replaying RF Charging Signals from Tesla Stations</div>
-          <div class="blog-desc">Captured charging port open signals using HackRF One and Flipper Zero, then successfully replayed them to open a colleague's Tesla (with permission). Explores the security implications and whether other EV makes are similarly exposed.</div>
+          <div class="blog-desc">After seeing this demonstrated online, I loaded the Tesla files onto a Flipper Zero and tested it on a colleague's Tesla — it worked immediately, opening the charging port on the first try (2023, with permission). This raised more questions than it answered: why does this signal open the port, is this a potential vehicle backdoor, and does it work on other EVs? I then replicated the capture using a HackRF One at a nearby charging forecourt, capturing and replaying the signal to understand the underlying mechanism and assess broader exposure across the EV market.</div>
         </div>
       </a>
 
