@@ -1,221 +1,716 @@
 <!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Owen Ball Site</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets-index/css/index.css" />
-		<noscript><link rel="stylesheet" href="assets-index/css/noscript.css" /></noscript>
-	</head>
-	<body class="homepage is-preload">
-		<div id="page-wrapper">
-			<!-- Nav -->
-				<nav id="nav">
-					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="projects.html">Projects</a></li>
-						<li><a href="research_blog.html">Research Blog</a></li>
-						<li><a href="profile.html">About Me</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
-				</nav>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Owen Ball — Offensive Security</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0c0f;
+  --bg2:#111418;
+  --bg3:#181d24;
+  --border:#1e2530;
+  --border2:#2a3444;
+  --red:#e84040;
+  --red2:#ff6060;
+  --red-dim:#3a1010;
+  --text:#e8eaf0;
+  --text2:#8a93a8;
+  --text3:#4a5568;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Syne',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.7;min-height:100vh;overflow-x:hidden}
 
-		</div>
+/* NOISE OVERLAY */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.4;
+}
 
-			<!-- Banner -->
-				<section id="banner">
-					<header>
-						<p>
-							<br><br><br>
-						</p>
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 2.5rem;
+  background:rgba(10,12,15,0.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:var(--mono);font-size:0.85rem;color:var(--red);
+  text-decoration:none;letter-spacing:0.05em;
+}
+.nav-logo span{color:var(--text2)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{
+  font-family:var(--mono);font-size:0.78rem;color:var(--text2);
+  text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;
+  transition:color .2s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--red)}
 
-					</header>
-				</section>
-				<!-- Banner -->
-				<section id="banner2">
-					<header>
-						<h2>Welcome to my Website -<strong>Owen Ball</strong>.</h2>
-						<p>
-							Feel free to check out my blog, projects or read more about me. <br>
-							If you have any questions or want to reach out goto my contact page <a href="contact.html">Contact Page</a> .
-						</p>
-					</header>
-				</section>
+/* PAGE SYSTEM */
+.page{display:none;min-height:100vh;padding-top:5rem;position:relative;z-index:1}
+.page.active{display:block}
 
-			<!-- Carousel -->
-				<section class="carousel">
-					<div class="reel">
+/* HERO */
+.hero{
+  min-height:calc(100vh - 5rem);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:4rem 2.5rem 2rem;
+  max-width:1100px;margin:0 auto;
+  position:relative;
+}
+.hero-tag{
+  font-family:var(--mono);font-size:0.75rem;color:var(--red);
+  letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:0.75rem;
+}
+.hero-tag::before{content:'';display:block;width:2rem;height:1px;background:var(--red)}
+h1.hero-name{
+  font-size:clamp(3rem,8vw,6.5rem);font-weight:800;line-height:1;
+  letter-spacing:-0.03em;margin-bottom:0.5rem;
+}
+h1.hero-name .dim{color:var(--text3)}
+.hero-role{
+  font-family:var(--mono);font-size:clamp(0.9rem,2vw,1.1rem);
+  color:var(--text2);margin-bottom:2.5rem;
+}
+.hero-role span{color:var(--red)}
+.hero-bio{
+  max-width:640px;color:var(--text2);font-size:1rem;
+  line-height:1.8;margin-bottom:3rem;
+  border-left:2px solid var(--red-dim);padding-left:1.5rem;
+}
+.hero-certs{display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:3rem}
+.cert-badge{
+  font-family:var(--mono);font-size:0.72rem;
+  border:1px solid var(--border2);
+  color:var(--text2);padding:0.35rem 0.85rem;
+  letter-spacing:0.05em;
+  background:var(--bg2);
+  transition:border-color .2s,color .2s;
+}
+.cert-badge:hover{border-color:var(--red);color:var(--red)}
+.cert-badge.highlight{border-color:var(--red);color:var(--red)}
+.hero-links{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+  font-family:var(--mono);font-size:0.78rem;letter-spacing:0.08em;
+  text-transform:uppercase;text-decoration:none;
+  padding:0.75rem 1.75rem;border:1px solid;
+  transition:all .2s;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;
+}
+.btn-primary{background:var(--red);color:#fff;border-color:var(--red)}
+.btn-primary:hover{background:transparent;color:var(--red)}
+.btn-ghost{background:transparent;color:var(--text2);border-color:var(--border2)}
+.btn-ghost:hover{border-color:var(--red);color:var(--red)}
 
-						<article>
-							<a href="https://github.com/Ballo-02/Via-Kramer-Whiteboard-" class="image featured"><img src="images/VIA_square.png" alt="Full RCE VIA Kramer (IoT Devcies) box" /></a>
-							<header>
-								<h3><a href="https://github.com/Ballo-02/Via-Kramer-Whiteboard-">Full RCE VIA Kramer (IoT Devcies) box</a></h3>
-							</header>
-							<p>Achieved full RCE without admin privileges for the Kramer Go (Debian) and Windows versions of the IoT devices(whiteboard), at Coventry University Talent Showcase</p>
-						</article>
+/* GRID BG DECORATION */
+.hero-grid{
+  position:absolute;right:-100px;top:50%;transform:translateY(-50%);
+  opacity:0.04;pointer-events:none;
+}
 
-						<article>
-							<a href="https://github.com/Ballo-02/DAB-FM-HackRF-Transmit" class="image featured"><img src="images/DABFM_square.png" alt="DAB/FM Broadcaster via HackRF One" /></a>
-							<header>
-								<h3><a href="https://github.com/Ballo-02/DAB-FM-HackRF-Transmit">DAB/FM Broadcaster via HackRF One</a></h3>
-							</header>
-							<p>A Linux-based Python3 script transmits 2 FM and 2 DAB signals using 4 HackRF One devices. Users can select frequency, station name, and details. It can run with fewer than 4 devices.</p>
-						</article>
+/* SECTION COMMON */
+.section{padding:5rem 2.5rem;max-width:1100px;margin:0 auto}
+.section-label{
+  font-family:var(--mono);font-size:0.72rem;color:var(--red);
+  letter-spacing:0.15em;text-transform:uppercase;
+  display:flex;align-items:center;gap:0.75rem;margin-bottom:2rem;
+}
+.section-label::before{content:'';display:block;width:2rem;height:1px;background:var(--red)}
+h2.section-title{
+  font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;
+  letter-spacing:-0.02em;margin-bottom:3rem;line-height:1.1;
+}
 
-						<article>
-							<a href="https://github.com/Ballo-02/GPS_Spoofing" class="image featured"><img src="images/GPS_square.png" alt="Simulating GPS co-ordinates on a Aston martin infotainment System" /></a>
-							<header>
-								<h3><a href="https://github.com/Ballo-02/GPS_Spoofing">Simulating GPS co-ordinates on a Aston martin infotainment System</a></h3>
-							</header>
-							<p>Simulating GPS co-ordinates on a Aston martin infotainment System using a HackRF One with modofied compents such as attenuators and TXCO PCB's</p>
-						</article>
+/* EXPERIENCE */
+.exp-list{display:flex;flex-direction:column;gap:0;border-left:1px solid var(--border)}
+.exp-item{
+  padding:2rem 0 2rem 2rem;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  transition:background .2s;
+}
+.exp-item::before{
+  content:'';position:absolute;left:-5px;top:2.4rem;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--bg);border:1px solid var(--border2);
+  transition:border-color .2s,background .2s;
+}
+.exp-item:hover::before{border-color:var(--red);background:var(--red)}
+.exp-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.25rem}
+.exp-title{font-size:1.1rem;font-weight:600}
+.exp-date{font-family:var(--mono);font-size:0.72rem;color:var(--red);letter-spacing:0.08em}
+.exp-company{font-family:var(--mono);font-size:0.8rem;color:var(--text2);margin-bottom:1rem;letter-spacing:0.05em}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.exp-bullets li{
+  font-size:0.92rem;color:var(--text2);
+  padding-left:1.25rem;position:relative;line-height:1.6;
+}
+.exp-bullets li::before{
+  content:'›';position:absolute;left:0;color:var(--red);font-size:1rem;
+}
 
-						<article>
-							<a href="https://github.com/Ballo-02/sockets" class="image featured"><img src="images/socket_square.png" alt="Controller &amp; Client Scripts" /></a>
-							<header>
-								<h3><a href="https://github.com/Ballo-02/sockets">Controller &amp; Client Scripts</a></h3>
-							</header>
-							<p>degree project involves a controller to manage client scripts on multiple machines. The controller enables live, relay, Python and general enumeration commands through a GUI menu.<br><br></p>
-						</article>
+/* SKILLS GRID */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border)}
+.skill-card{
+  background:var(--bg);padding:1.75rem;
+  transition:background .2s;
+}
+.skill-card:hover{background:var(--bg2)}
+.skill-icon{font-size:1.5rem;margin-bottom:1rem;color:var(--red)}
+.skill-name{font-size:0.95rem;font-weight:600;margin-bottom:0.5rem}
+.skill-desc{font-size:0.83rem;color:var(--text2);line-height:1.6;font-family:var(--mono)}
 
-						<article>
-							<a href="https://github.com/Ballo-02/Rainbow_table" class="image featured"><img src="images/rainbow_square.png" alt="Rainbow Table Generator" /></a>
-							<header>
-								<h3><a href="https://github.com/Ballo-02/Rainbow_table">Rainbow Table Generator</a></h3>
-							</header>
-							<p>The chosen hash function can create hashes of arbitrary length. Here, we&#x27;re using just two bytes to limit the size of tables required, but the same methods would apply for larger hashes. You just need more time and space.</p>
-						</article>
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--border)}
+.proj-card{
+  background:var(--bg);padding:1.75rem 1.75rem 1.5rem;
+  display:flex;flex-direction:column;gap:0.75rem;
+  transition:background .2s;
+  text-decoration:none;color:inherit;
+}
+.proj-card:hover{background:var(--bg2)}
+.proj-tag{
+  font-family:var(--mono);font-size:0.68rem;
+  color:var(--red);letter-spacing:0.1em;text-transform:uppercase;
+}
+.proj-title{font-size:1rem;font-weight:600;line-height:1.3}
+.proj-desc{font-size:0.83rem;color:var(--text2);line-height:1.6;flex:1}
+.proj-link{
+  font-family:var(--mono);font-size:0.72rem;color:var(--text3);
+  letter-spacing:0.05em;display:flex;align-items:center;gap:0.4rem;
+  margin-top:0.25rem;
+}
+.proj-link svg{width:12px;height:12px;stroke:currentColor;fill:none}
+.proj-card:hover .proj-link{color:var(--red)}
 
-						<article>
-							<a href="https://github.com/Ballo-02/advanced-CISCO-System-" class="image featured"><img src="images/cisco_square.png" alt="Designed an advanced CISCO Network" /></a>
-							<header>
-								<h3><a href="https://github.com/Ballo-02/advanced-CISCO-System-">Designed an advanced CISCO Network</a></h3>
-							</header>
-							<p>Designed an advanced CISCO Network where I attained my <a href="https://www.credly.com/badges/40e074a1-a264-4d89-b2c6-8dd19d1b0a15?source=linked_in_profile">'CCNA: Switching, Routing, and Wireless Essentials'</a> certification. I also attained the introduction cert </p>
-						</article>
+/* BLOG */
+.blog-grid{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.blog-card{
+  background:var(--bg);padding:1.75rem;
+  display:flex;gap:2rem;align-items:flex-start;
+  transition:background .2s;text-decoration:none;color:inherit;
+}
+.blog-card:hover{background:var(--bg2)}
+.blog-num{
+  font-family:var(--mono);font-size:2rem;font-weight:600;
+  color:var(--border2);min-width:2.5rem;line-height:1;
+  flex-shrink:0;
+}
+.blog-card:hover .blog-num{color:var(--red)}
+.blog-tag{font-family:var(--mono);font-size:0.68rem;color:var(--red);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.35rem}
+.blog-title{font-size:1rem;font-weight:600;margin-bottom:0.4rem;line-height:1.3}
+.blog-desc{font-size:0.83rem;color:var(--text2);line-height:1.6}
 
-						<article>
-							<a href="https://github.com/Ballo-02/website-with-a-secure-database-" class="image featured"><img src="images/website_square.png" alt="Secure website and database" /></a>
-							<header>
-								<h3><a href="https://github.com/Ballo-02/website-with-a-secure-database-">Implemented a website with a secure database</a></h3>
-							</header>
-							<p>Self-taught PHP, SQL, JavaScript, Html, and CSS for a University module. Created a website with secure backend, login, leaderboard, and multiple access levels.</p>
-						</article>
+/* ACHIEVEMENTS */
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--border)}
+.ach-card{
+  background:var(--bg);padding:1.75rem;
+  transition:background .2s;
+}
+.ach-card:hover{background:var(--bg2)}
+.ach-year{font-family:var(--mono);font-size:0.72rem;color:var(--red);letter-spacing:0.1em;margin-bottom:0.5rem}
+.ach-title{font-size:1rem;font-weight:600;margin-bottom:0.3rem}
+.ach-org{font-family:var(--mono);font-size:0.78rem;color:var(--text2)}
 
-						<article>
-							<a href="https://github.com/Ballo-02/Automotive-Hacking-ComSec" class="image featured"><img src="images/automotive_square.png" alt="Automotive Hacking presentation + Simulator" /></a>
-							<header>
-								<h3><a href="https://github.com/Ballo-02/Automotive-Hacking-ComSec">Automotive Hacking presentation + Simulator</a></h3>
-							</header>
-							<p>Researched and simulated Automotive Hacking for ComSec society. Demonstrated CAN packet capture and relay to control car functions such as revving, turning, and signaling.</p>
-						</article>
+/* CONTACT */
+.contact-wrap{
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;
+  align-items:start;
+}
+.contact-info{display:flex;flex-direction:column;gap:1.5rem}
+.contact-item{
+  display:flex;align-items:center;gap:1rem;
+  font-family:var(--mono);font-size:0.85rem;color:var(--text2);
+}
+.contact-icon{width:40px;height:40px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;color:var(--red);flex-shrink:0}
+.contact-item a{color:var(--text2);text-decoration:none}
+.contact-item a:hover{color:var(--red)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:3rem}
+.stat-box{background:var(--bg2);padding:1.5rem;text-align:center}
+.stat-num{font-size:2.2rem;font-weight:800;color:var(--red);display:block;font-family:var(--sans)}
+.stat-label{font-family:var(--mono);font-size:0.72rem;color:var(--text2);letter-spacing:0.08em}
 
-						<article>
-							<a href="https://github.com/Ballo-02/Privilege-Escalation-and-Enumeration-Script-LEAP-" class="image featured"><img src="images/PrivEsc_square.png" alt="Privilege Escalation and Enumeration Script" /></a>
-							<header>
-								<h3><a href="https://github.com/Ballo-02/Privilege-Escalation-and-Enumeration-Script-LEAP-">Privilege Escalation and Enumeration Script</a></h3>
-							</header>
-							<p>First-year project Local Enumeration And Privesc script used Python 3 and Linux to enumerate OS and determine privilege escalation methods.</p>
-						</article>
+/* TERMINAL INTRO */
+.terminal{
+  font-family:var(--mono);font-size:0.82rem;
+  background:var(--bg2);border:1px solid var(--border2);
+  padding:1.5rem;margin-top:3rem;max-width:500px;
+  line-height:2;
+}
+.terminal .t-comment{color:var(--text3)}
+.terminal .t-key{color:var(--text2)}
+.terminal .t-val{color:var(--red2)}
+.terminal .t-cursor{
+  display:inline-block;width:8px;height:1.1em;
+  background:var(--red);vertical-align:text-bottom;
+  animation:blink 1s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
-						<article>
-							<a href="https://github.com/Ballo-02/3D-survival-game-A-level-dissertation-" class="image featured"><img src="images/survival_square.png" alt="3D survival game (A Level Dissertation)" /></a>
-							<header>
-								<h3><a href="https://github.com/Ballo-02/3D-survival-game-A-level-dissertation-">3D survival game (A Level Dissertation)</a></h3>
-							</header>
-							<p>Self-taught msyelf C# and Unity for computer science A Level project for a 3D survival game. Achieved A* grade and documented project in Word and PDF</p>
-						</article>
+/* DIVIDER */
+.divider{border:none;border-top:1px solid var(--border);margin:0}
 
-					</div>
-				</section>
+/* FOOTER */
+footer{
+  border-top:1px solid var(--border);padding:1.5rem 2.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--mono);font-size:0.72rem;color:var(--text3);
+  flex-wrap:wrap;gap:1rem;position:relative;z-index:1;
+}
+footer a{color:var(--text3);text-decoration:none}
+footer a:hover{color:var(--red)}
 
-			<!-- Main -->
-				<div class="wrapper style2">
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:1rem 1.25rem}
+  .nav-links{gap:1rem}
+  .nav-links a{font-size:0.7rem}
+  .hero,.section{padding-left:1.25rem;padding-right:1.25rem}
+  .contact-wrap{grid-template-columns:1fr}
+  .blog-card{flex-direction:column;gap:0.75rem}
+  .stat-row{grid-template-columns:1fr}
+}
 
-					<article id="main" class="container special">
-						<!-- <a href="images/portrait.jpg" class="image featured"><img src="images/portrait.jpg" alt="Profile Picture of Owen Ball" /></a> -->
-						<header>
-							<h2><a href="about.html">A little about me</a></h2>
-							<p>
-								You can see more of my academic achievements on my about page 
-							</p>
-						</header>
-						<a>
-							As a Placement Student, I am passionate about Ethical Hacking and Cyber Security and currently pursuing a 1st Class Honours degree at Coventry University (on track to gain a high first). 
-							I stay up-to-date with cyber security events and exploits and recreate these scenarios in controlled environments, as demonstrated by my blog and projects. 
-							I have also participated in events such as my Hacking IoT project, where my team gained full RCE for two platforms and won a prize.
-							During my placement year, I had the opportunity to penetration test Hypercars and Supercars, which provided me with extensive knowledge of the cyber security automotive industry. 
-							My focus now lies in the area of connected vehicles.I am hardworking, honest, dependable, and self-motivated, as evidenced by my successful completion of various projects.</a>
-						</a>
-					</article>
+/* SCROLL FADE */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.fade-in{animation:fadeUp .5s ease both}
+</style>
+</head>
+<body>
 
-				</div>
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('home')"><span>//</span> ob<span>.sec</span></a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a href="#" onclick="showPage('projects')" id="nav-projects">Projects</a></li>
+    <li><a href="#" onclick="showPage('blog')" id="nav-blog">Research</a></li>
+    <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+</nav>
 
-			<!-- Features -->
-				<div class="wrapper style1">
+<!-- ═══════════════ HOME ═══════════════ -->
+<div class="page active" id="page-home">
+  <div class="hero">
 
-					<section id="features" class="container special">
-						<header>
-							<h2>My Recent Blog Posts</h2>
-							<p>You can see more of my blogs on my <a href="blog.html">Blog Page</a> </p>
-						</header>
-						<div class="row">
-							<article class="col-4 col-12-mobile special">
-								<a href="#" class="image featured"><img src="images/autopilot.png" alt="blog1" /></a>
-								<header>
-									<h3><a href="#">Simulating GPS Co-Ordinates on a Aston Martin Infotainment System-Success</a></h3>
-								</header>
-								<p>
-									To see how easily GPS can be spoofed
-								</p>
-							</article>
-							<article class="col-4 col-12-mobile special">
-								<a href="blog2" class="image featured"><img src="images/cloneid.jpg" alt="blog2" /></a>
-								<header>
-									<h3><a href="blog2">Cloning Paxton key fob with Easy ProxyMark3 and Flipper</a></h3>
-								</header>
-								<p>
-									Further my research into how keycard entry systems work and can be exploited
-								</p>
-							</article>
-							<article class="col-4 col-12-mobile special">
-								<a href="blog3" class="image featured"><img src="images/charging.png" alt="blog3" /></a>
-								<header>
-									<h3><a href="blog3">Capturing RF Charging signals from Tesla stations and replaying to open charging ports</a></h3>
-								</header>
-								<p>
-									This allowed me to capture the signals view what was sent and replay it using a HackRf One and Flipper
-								</p>
-							</article>
-						</div>
-					</section>
+    <svg class="hero-grid" width="500" height="500" viewBox="0 0 500 500">
+      <defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#e84040" stroke-width="0.5"/></pattern></defs>
+      <rect width="500" height="500" fill="url(#g)"/>
+    </svg>
 
-				</div>
-					<div class="row">
-						<div class="col-12">
-							<!-- Copyright -->
-								<div class="copyright">
-									<ul class="menu">
-										<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-									</ul>
-								</div>
+    <div class="hero-tag">Offensive Security Consultant</div>
 
-						</div>
+    <h1 class="hero-name">Owen<br><span class="dim">Ball</span></h1>
 
-					</div>
-				</div>
+    <p class="hero-role">Red Team Operator <span>·</span> Penetration Tester <span>·</span> Security Researcher</p>
 
-		</div>
+    <p class="hero-bio">
+      Approaching 3 years of professional experience conducting penetration tests across cloud, internal network,
+      external network, web application, and host environments — with a strong focus on Active Directory attacks,
+      lateral movement, and privilege escalation.
+    </p>
 
-		<!-- Scripts -->
-			<script src="assets-index/js/jquery.min.js"></script>
-			<script src="assets-index/js/jquery.dropotron.min.js"></script>
-			<script src="assets-index/js/jquery.scrolly.min.js"></script>
-			<script src="assets-index/js/jquery.scrollex.min.js"></script>
-			<script src="assets-index/js/browser.min.js"></script>
-			<script src="assets-index/js/breakpoints.min.js"></script>
-			<script src="assets-index/js/util.js"></script>
-			<script src="assets-index/js/main.js"></script>
+    <div class="hero-certs">
+      <span class="cert-badge highlight">OSCP+</span>
+      <span class="cert-badge highlight">CPSA</span>
+      <span class="cert-badge">CompTIA PenTest+</span>
+      <span class="cert-badge">BSc First Class Honours</span>
+      <span class="cert-badge">CRT (In Progress)</span>
+    </div>
 
-	</body>
+    <div class="hero-links">
+      <a href="#" class="btn btn-primary" onclick="showPage('contact')">Get in touch</a>
+      <a href="#" class="btn btn-ghost" onclick="showPage('projects')">View Projects</a>
+      <a href="https://github.com/Ballo-02" class="btn btn-ghost" target="_blank">GitHub ↗</a>
+    </div>
+
+    <div class="terminal">
+      <div class="t-comment"># whoami</div>
+      <div><span class="t-key">name:</span>      <span class="t-val">Owen Ball</span></div>
+      <div><span class="t-key">role:</span>      <span class="t-val">Offensive Security Consultant</span></div>
+      <div><span class="t-key">certs:</span>     <span class="t-val">OSCP+, CPSA, PenTest+</span></div>
+      <div><span class="t-key">1st place:</span> <span class="t-val">Huntress CTF (4,224 teams)</span></div>
+      <div><span class="t-key">status:</span>    <span class="t-val">Open to red team roles</span></div>
+      <div><span class="t-cursor"></span></div>
+    </div>
+  </div>
+
+  <div class="stat-row" style="max-width:1100px;margin:0 auto 0">
+    <div class="stat-box">
+      <span class="stat-num">3yrs</span>
+      <span class="stat-label">Professional Experience</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">4,224</span>
+      <span class="stat-label">Teams Beaten — Huntress CTF</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Engagement Types</span>
+    </div>
+  </div>
+  <footer>
+    <span>© 2025 Owen Ball</span>
+    <span><a href="https://linkedin.com/in/owen-ball" target="_blank">LinkedIn</a> · <a href="https://github.com/Ballo-02" target="_blank">GitHub</a></span>
+  </footer>
+</div>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<div class="page" id="page-about">
+  <div class="section fade-in">
+    <div class="section-label">Profile</div>
+    <h2 class="section-title">About Me</h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-bottom:4rem">
+      <div>
+        <p style="color:var(--text2);font-size:0.95rem;line-height:1.8;margin-bottom:1.5rem">
+          Offensive Security Consultant at FSP, approaching 3 years of professional experience across cloud, internal, external, web application, and host environments. Strong focus on Active Directory attacks, lateral movement, and privilege escalation.
+        </p>
+        <p style="color:var(--text2);font-size:0.95rem;line-height:1.8;margin-bottom:1.5rem">
+          I actively contribute to the offensive security community through competitive CTF participation — achieving <strong style="color:var(--text)">1st place from 4,224 teams</strong> in the Huntress CTF — and by designing internal challenges including a 10-challenge web security CTF covering ADCS certificate abuse, MSSQL linked server exploitation, and AI prompt injection.
+        </p>
+        <p style="color:var(--text2);font-size:0.95rem;line-height:1.8">
+          First Class Honours in Ethical Hacking & Cyber Security from Coventry University. Holding OSCP+, CPSA, and CompTIA PenTest+, actively working towards CRT.
+        </p>
+      </div>
+      <div>
+        <div style="border:1px solid var(--border);padding:1.5rem;background:var(--bg2)">
+          <div style="font-family:var(--mono);font-size:0.72rem;color:var(--red);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.25rem">Certifications</div>
+          <div style="display:flex;flex-direction:column;gap:0.85rem">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:0.85rem;border-bottom:1px solid var(--border)">
+              <div>
+                <div style="font-size:0.9rem;font-weight:600">OSCP+</div>
+                <div style="font-family:var(--mono);font-size:0.72rem;color:var(--text2)">OffSec</div>
+              </div>
+              <span style="font-family:var(--mono);font-size:0.7rem;color:var(--red);border:1px solid var(--red-dim);padding:0.2rem 0.6rem">2025</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:0.85rem;border-bottom:1px solid var(--border)">
+              <div>
+                <div style="font-size:0.9rem;font-weight:600">CPSA</div>
+                <div style="font-family:var(--mono);font-size:0.72rem;color:var(--text2)">CREST</div>
+              </div>
+              <span style="font-family:var(--mono);font-size:0.7rem;color:var(--red);border:1px solid var(--red-dim);padding:0.2rem 0.6rem">2026</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:0.85rem;border-bottom:1px solid var(--border)">
+              <div>
+                <div style="font-size:0.9rem;font-weight:600">CompTIA PenTest+</div>
+                <div style="font-family:var(--mono);font-size:0.72rem;color:var(--text2)">CompTIA</div>
+              </div>
+              <span style="font-family:var(--mono);font-size:0.7rem;color:var(--text3);border:1px solid var(--border2);padding:0.2rem 0.6rem">2025</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div style="font-size:0.9rem;font-weight:600">CRT</div>
+                <div style="font-family:var(--mono);font-size:0.72rem;color:var(--text2)">CREST — In Progress</div>
+              </div>
+              <span style="font-family:var(--mono);font-size:0.7rem;color:var(--text3);border:1px solid var(--border2);padding:0.2rem 0.6rem">TBC</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-bottom:1.5rem">Experience</div>
+    <div class="exp-list" style="margin-bottom:4rem">
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Offensive Security Consultant</span>
+          <span class="exp-date">Sep 2024 — Present</span>
+        </div>
+        <div class="exp-company">FSP · Reading / Remote</div>
+        <ul class="exp-bullets">
+          <li>Conducted penetration tests across Cloud, Internal, External, Web, and Host environments.</li>
+          <li>Performed vulnerability assessments and produced detailed technical reports with practical remediation advice.</li>
+          <li>Developed offensive automation tooling to support privilege escalation workflows during engagements.</li>
+          <li>Delivered internal red team talks covering MSSQL linked server exploitation, DNS poisoning and credential capture via Responder in AD environments, and operationalising underdeveloped CVEs.</li>
+          <li>Designed and hosted Gorilla CTF — 10-challenge web security CTF covering ADCS certificate abuse, MSSQL linked server exploitation, and AI prompt injection.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Penetration Tester / Software Security Engineer</span>
+          <span class="exp-date">Aug 2022 — Aug 2023</span>
+        </div>
+        <div class="exp-company">Skyships Automotive (Hypercars/Supercars) · Braintree</div>
+        <ul class="exp-bullets">
+          <li>Conducted penetration testing of connected vehicle systems across mobile and web attack surfaces.</li>
+          <li>Assessed cloud infrastructure for security misconfigurations and access control weaknesses.</li>
+          <li>Identified and analysed vulnerabilities within QNX-based embedded systems.</li>
+          <li>Injected and intercepted CAN bus frames to identify attack vectors within automotive control systems.</li>
+          <li>Simulated GPS coordinate spoofing against an Aston Martin infotainment system using HackRF One and TCXO PCB, successfully overriding vehicle navigation under controlled conditions.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Student Proctor / Ambassador — Computing & Engineering</span>
+          <span class="exp-date">Sep 2020 — Jul 2024</span>
+        </div>
+        <div class="exp-company">Coventry University · Coventry</div>
+        <ul class="exp-bullets">
+          <li>Headhunted by course director to assist as a lab instructor for 1st and 2nd year students.</li>
+          <li>Represented the university at open days and recruitment events.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-bottom:1.5rem">Skills</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">⬡</div>
+        <div class="skill-name">Red Team / Offensive Operations</div>
+        <div class="skill-desc">Full offensive lifecycle · AD attacks · Lateral movement · Privilege escalation · Initial access · Cloud (AWS/Azure)</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⬡</div>
+        <div class="skill-name">Tools & Platforms</div>
+        <div class="skill-desc">Burp Suite · BloodHound · Nessus · ScoutSuite · Impacket · Metasploit · Nmap · Wireshark · Responder</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⬡</div>
+        <div class="skill-name">Programming & Scripting</div>
+        <div class="skill-desc">Python · Bash · PowerShell · C# · C · PHP · SQL</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⬡</div>
+        <div class="skill-name">Physical Pentesting & RF</div>
+        <div class="skill-desc">HackRF One · Flipper Zero · Proxmark3 · GPS spoofing · RF signal capture · Key fob cloning</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⬡</div>
+        <div class="skill-name">Automotive Security</div>
+        <div class="skill-desc">CAN bus protocol · Infotainment attack surfaces · GPS/RF spoofing · Connected vehicle pen testing</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⬡</div>
+        <div class="skill-name">Operating Systems</div>
+        <div class="skill-desc">Kali Linux · Windows (incl. AD) · Ubuntu · QNX · ROS · Docker</div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <span>© 2025 Owen Ball</span>
+    <span><a href="https://linkedin.com/in/owen-ball" target="_blank">LinkedIn</a> · <a href="https://github.com/Ballo-02" target="_blank">GitHub</a></span>
+  </footer>
+</div>
+
+<!-- ═══════════════ PROJECTS ═══════════════ -->
+<div class="page" id="page-projects">
+  <div class="section fade-in">
+    <div class="section-label">Work</div>
+    <h2 class="section-title">Projects</h2>
+
+    <div class="projects-grid">
+
+      <a href="https://github.com/Ballo-02/Via-Kramer-Whiteboard-" target="_blank" class="proj-card">
+        <div class="proj-tag">IoT · Exploit Dev</div>
+        <div class="proj-title">Full RCE via Kramer IoT Devices</div>
+        <div class="proj-desc">Achieved full remote code execution (root) on Kramer Go classroom devices without admin credentials via custom Python exploit scripts. Published on ExploitDB and GitHub. Won Coventry University Talent Showcase (Capgemini sponsorship award).</div>
+        <div class="proj-link">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          ExploitDB + GitHub
+        </div>
+      </a>
+
+      <a href="https://github.com/Ballo-02/GPS_Spoofing" target="_blank" class="proj-card">
+        <div class="proj-tag">RF · Automotive</div>
+        <div class="proj-title">GPS Spoofing — Aston Martin Infotainment</div>
+        <div class="proj-desc">Simulated GPS coordinates against an Aston Martin infotainment system using HackRF One and a TCXO PCB with 30dB attenuator. Successfully overrode vehicle navigation under controlled, permitted conditions.</div>
+        <div class="proj-link">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          GitHub
+        </div>
+      </a>
+
+      <a href="https://github.com/Ballo-02/Gorilla-CTF" target="_blank" class="proj-card">
+        <div class="proj-tag">CTF Design · Red Team</div>
+        <div class="proj-title">Gorilla CTF — Admin Guide & Challenge Docs</div>
+        <div class="proj-desc">Designed and hosted a 10-challenge internal web security CTF. Each challenge ran as an isolated Docker container. Topics covered: Stored XSS, IDOR, ADCS certificate abuse, MSSQL linked server exploitation, and AI prompt injection.</div>
+        <div class="proj-link">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          Documentation
+        </div>
+      </a>
+
+      <a href="https://github.com/Ballo-02/Privilege-Escalation-and-Enumeration-Script-LEAP-" target="_blank" class="proj-card">
+        <div class="proj-tag">Tooling · Python</div>
+        <div class="proj-title">Privilege Escalation & Enumeration Script (LEAP)</div>
+        <div class="proj-desc">Local Enumeration And Privesc script using Python 3 and Linux to enumerate OS and determine privilege escalation methods automatically.</div>
+        <div class="proj-link">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          GitHub
+        </div>
+      </a>
+
+      <a href="https://github.com/Ballo-02/sockets" target="_blank" class="proj-card">
+        <div class="proj-tag">Tooling · C2</div>
+        <div class="proj-title">Encrypted Controller & Client Scripts</div>
+        <div class="proj-desc">Controller to manage client scripts across multiple machines with live, relay, Python, and enumeration commands through a GUI menu. Encrypted communications between controller and clients.</div>
+        <div class="proj-link">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          GitHub
+        </div>
+      </a>
+
+      <a href="https://github.com/Ballo-02/DAB-FM-HackRF-Transmit" target="_blank" class="proj-card">
+        <div class="proj-tag">RF · HackRF</div>
+        <div class="proj-title">DAB/FM Broadcaster via HackRF One</div>
+        <div class="proj-desc">Linux-based Python3 script that transmits FM and DAB signals using HackRF One. Configurable frequency, station name, and broadcast details.</div>
+        <div class="proj-link">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          GitHub
+        </div>
+      </a>
+
+    </div>
+
+    <div style="margin-top:3rem;padding:1.5rem;border:1px solid var(--border);background:var(--bg2)">
+      <div style="font-family:var(--mono);font-size:0.72rem;color:var(--text3);margin-bottom:0.5rem">All projects</div>
+      <a href="https://github.com/Ballo-02" target="_blank" style="font-family:var(--mono);font-size:0.85rem;color:var(--text2);text-decoration:none">ballo-02.github.io ↗</a>
+    </div>
+  </div>
+  <footer>
+    <span>© 2025 Owen Ball</span>
+    <span><a href="https://github.com/Ballo-02" target="_blank">GitHub</a></span>
+  </footer>
+</div>
+
+<!-- ═══════════════ BLOG ═══════════════ -->
+<div class="page" id="page-blog">
+  <div class="section fade-in">
+    <div class="section-label">Research</div>
+    <h2 class="section-title">Blog & Research</h2>
+
+    <div class="blog-grid">
+
+      <a href="#" class="blog-card">
+        <div class="blog-num">01</div>
+        <div>
+          <div class="blog-tag">RF · Automotive</div>
+          <div class="blog-title">Simulating GPS Coordinates on an Aston Martin Infotainment System</div>
+          <div class="blog-desc">Exploring how easily GPS can be spoofed using a HackRF One and custom TCXO PCB. Covers signal theory, attenuator setup, and the threat model for modern vehicles relying on GPS for autopilot functionality.</div>
+        </div>
+      </a>
+
+      <a href="https://ballo-02.github.io/blog2" class="blog-card">
+        <div class="blog-num">02</div>
+        <div>
+          <div class="blog-tag">Physical · RFID</div>
+          <div class="blog-title">Cloning a Paxton Key Fob with Proxmark3 and Flipper Zero</div>
+          <div class="blog-desc">Research into how keycard entry systems can be exploited. Covers LF/HF card analysis, Proxmark3 workflow, and a real-world test against an apartment entry system with permission.</div>
+        </div>
+      </a>
+
+      <a href="https://ballo-02.github.io/blog3" class="blog-card">
+        <div class="blog-num">03</div>
+        <div>
+          <div class="blog-tag">RF · Tesla</div>
+          <div class="blog-title">Capturing & Replaying RF Charging Signals from Tesla Stations</div>
+          <div class="blog-desc">Captured charging port open signals using HackRF One and Flipper Zero, then successfully replayed them to open a colleague's Tesla (with permission). Explores the security implications and whether other EV makes are similarly exposed.</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div style="margin-top:2rem;padding:1.5rem;border:1px solid var(--border);background:var(--bg2);font-family:var(--mono);font-size:0.82rem;color:var(--text2)">
+      More research coming soon. Follow on <a href="https://linkedin.com/in/owen-ball" target="_blank" style="color:var(--red);text-decoration:none">LinkedIn</a> for updates.
+    </div>
+  </div>
+  <footer>
+    <span>© 2025 Owen Ball</span>
+    <span><a href="https://linkedin.com/in/owen-ball" target="_blank">LinkedIn</a></span>
+  </footer>
+</div>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<div class="page" id="page-contact">
+  <div class="section fade-in">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Get in Touch</h2>
+
+    <div class="contact-wrap">
+      <div>
+        <p style="color:var(--text2);font-size:0.95rem;line-height:1.8;margin-bottom:2.5rem">
+          Open to red team operator roles, offensive security consulting, and security research collaborations.
+          Feel free to reach out directly.
+        </p>
+
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">@</div>
+            <a href="mailto:owen.edward.ball@gmail.com">owen.edward.ball@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">in</div>
+            <a href="https://linkedin.com/in/owen-ball" target="_blank">linkedin.com/in/owen-ball</a>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">&lt;/&gt;</div>
+            <a href="https://github.com/Ballo-02" target="_blank">github.com/Ballo-02</a>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">#</div>
+            <span>+44 7925 401944</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="border:1px solid var(--border);padding:2rem;background:var(--bg2)">
+          <div style="font-family:var(--mono);font-size:0.72rem;color:var(--red);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem">Quick Facts</div>
+          <div style="display:flex;flex-direction:column;gap:1rem">
+            <div style="display:flex;justify-content:space-between;font-size:0.85rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">
+              <span style="color:var(--text2);font-family:var(--mono);font-size:0.78rem">Location</span>
+              <span>UK — British Citizen</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.85rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">
+              <span style="color:var(--text2);font-family:var(--mono);font-size:0.78rem">Right to Work</span>
+              <span>Unrestricted</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.85rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">
+              <span style="color:var(--text2);font-family:var(--mono);font-size:0.78rem">Available</span>
+              <span style="color:var(--red)">Open to Offers</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.85rem">
+              <span style="color:var(--text2);font-family:var(--mono);font-size:0.78rem">Focus</span>
+              <span>Red Team Operations</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:1px;background:var(--bg2);border:1px solid var(--border);border-top:none;padding:1.25rem;font-family:var(--mono);font-size:0.78rem;color:var(--text3)">
+          References available on request.
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <span>© 2025 Owen Ball</span>
+    <span><a href="https://linkedin.com/in/owen-ball" target="_blank">LinkedIn</a> · <a href="https://github.com/Ballo-02" target="_blank">GitHub</a></span>
+  </footer>
+</div>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  const page=document.getElementById('page-'+id);
+  if(page){page.classList.add('active');window.scrollTo(0,0)}
+  const nav=document.getElementById('nav-'+id);
+  if(nav)nav.classList.add('active');
+  return false;
+}
+</script>
+</body>
 </html>
